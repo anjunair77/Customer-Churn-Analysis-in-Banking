@@ -13,7 +13,7 @@ Synthetic dataset of 1,000 bank customers with fields including:
 - Active membership status
 - Churn flag (1 = churned, 0 = retained)
 
-## 🔍 Key Questions Answered (via SQL)
+## 🔍 Data Analysis
 - What is the overall churn rate?
 - How does churn vary by gender, tenure, and product usage?
 - Are active members less likely to churn?

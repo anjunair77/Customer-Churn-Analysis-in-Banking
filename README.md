@@ -1,35 +1,60 @@
-# Customer-Churn-Analysis-in-Banking
-Analyze customer churn data for a fictional bank to identify factors influencing customer attrition and generate actionable insights using SQL.
-## 🧠 Objective
-Analyze customer churn data for a fictional bank to identify factors influencing customer attrition and generate actionable insights using SQL.
 
-## 📊 Dataset
-Synthetic dataset of 1,000 bank customers with fields including:
-- Age, Gender
-- Tenure with bank
-- Account balance and estimated salary
-- Number of products held
-- Credit card ownership
-- Active membership status
-- Churn flag (1 = churned, 0 = retained)
+CREATE TABLE customers (
+    customer_id INTEGER PRIMARY KEY,
+    age INTEGER,
+    gender TEXT,
+    tenure_years INTEGER,
+    account_balance REAL,
+    num_products INTEGER,
+    has_credit_card INTEGER,
+    is_active_member INTEGER,
+    estimated_salary REAL,
+    churn INTEGER
+);
 
-## 🔍 Data Analysis
-- What is the overall churn rate?
-- How does churn vary by gender, tenure, and product usage?
-- Are active members less likely to churn?
-- Do customers with credit cards or higher balances churn less?
+-- 1. Overall churn rate
+SELECT 
+    COUNT(*) AS total_customers,
+    SUM(churn) AS total_churned,
+    ROUND(AVG(churn) * 100, 2) AS churn_rate_percent
+FROM customers;
 
-## 🧩 Key Findings
-- Churn rate is higher among customers with low tenure (< 2 years)
-- Inactive members are over 2x more likely to churn
-- Customers with only 1 product are more likely to leave the bank
+-- 2. Churn by gender
+SELECT 
+    gender,
+    COUNT(*) AS total,
+    SUM(churn) AS churned,
+    ROUND(AVG(churn) * 100, 2) AS churn_rate_percent
+FROM customers
+GROUP BY gender;
 
-## 💡 Recommendations
-- Focus retention strategies on newer, inactive customers
-- Encourage multi-product adoption via incentives
-- Improve onboarding for customers in the first 2 years
+-- 3. Churn by tenure
+SELECT 
+    tenure_years,
+    COUNT(*) AS total,
+    SUM(churn) AS churned,
+    ROUND(AVG(churn) * 100, 2) AS churn_rate_percent
+FROM customers
+GROUP BY tenure_years
+ORDER BY tenure_years;
 
-## ⚙️ Tools Used
-- SQL (for data analysis)
-- Python (for data generation)
+-- 4. Churn by active membership
+SELECT 
+    is_active_member,
+    COUNT(*) AS total,
+    SUM(churn) AS churned,
+    ROUND(AVG(churn) * 100, 2) AS churn_rate_percent
+FROM customers
+GROUP BY is_active_member;
+
+-- 5. Churn by number of products
+SELECT 
+    num_products,
+    COUNT(*) AS total,
+    SUM(churn) AS churned,
+    ROUND(AVG(churn) * 100, 2) AS churn_rate_percent
+FROM customers
+GROUP BY num_products
+ORDER BY num_products;
+
 
